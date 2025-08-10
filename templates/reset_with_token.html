@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+  <h2>Set new password</h2>
+  <form method="POST">
+    <input type="password" name="password" placeholder="New password" required>
+    <button class="btn primary">Update password</button>
+  </form>
+</div>
+{% endblock %}

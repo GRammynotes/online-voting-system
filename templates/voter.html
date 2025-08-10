@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Voter Panel</h2>
+<div class="grid">
+  {% for item in view %}
+    <div class="card">
+      <h3>{{ item.position.title }}</h3>
+      {% if not item.election %}<p class="muted">No active election</p>{% else %}
+        <p>From {{ item.election.start_time }} to {{ item.election.end_time }}</p>
+        {% if item.voted %}<p class="muted">You have voted</p>
+        {% else %}<a class="btn" href="{{ url_for('vote', position_id=item.position.id) }}">Vote now</a>{% endif %}
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

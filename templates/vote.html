@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Vote - Election for {{ election.position_id }}</h2>
+<form method="POST">
+  {% for c in candidates %}
+    <div class="card">
+      <h4>{{ c.name }}</h4>
+      <p>{{ c.bio }}</p>
+      <button class="btn primary" name="candidate_id" value="{{ c.id }}" type="submit">Vote</button>
+    </div>
+  {% endfor %}
+</form>
+{% endblock %}

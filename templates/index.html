@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Positions & Active Elections</h1>
+<div class="grid">
+  {% for p in positions %}
+    <div class="card">
+      <h3>{{ p.title }}</h3>
+      <p>{{ p.description }}</p>
+      {% if p.active %}
+        <a class="btn primary" href="{{ url_for('vote', position_id=p.id) }}">Vote (Active)</a>
+        <a class="btn" href="{{ url_for('results', position_id=p.id) }}">Results</a>
+      {% else %}
+        <p class="muted">No active election</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

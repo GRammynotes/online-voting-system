@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Candidate</h2>
+<div class="card">
+  <form method="POST">
+    <input name="name" value="{{ cand.name }}" required>
+    <textarea name="bio">{{ cand.bio }}</textarea>
+    <button class="btn">Save</button>
+  </form>
+</div>
+{% endblock %}

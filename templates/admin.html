@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<div class="grid">
+  <div class="card">
+    <h3>Add Position</h3>
+    <form method="POST" action="{{ url_for('add_position') }}">
+      <input name="title" placeholder="Position title" required>
+      <input name="description" placeholder="Description">
+      <button class="btn" type="submit">Add</button>
+    </form>
+  </div>
+  <div class="card">
+    <h3>Schedule Election</h3>
+    <form method="POST" action="{{ url_for('schedule_election') }}">
+      <select name="position_id" required>
+        {% for p in positions %}<option value="{{ p.id }}">{{ p.title }}</option>{% endfor %}
+      </select>
+      <label>Start</label>
+      <input type="datetime-local" name="start_time" required>
+      <label>End</label>
+      <input type="datetime-local" name="end_time" required>
+      <button class="btn">Schedule</button>
+    </form>
+  </div>
+  <div class="card">
+    <h3>Pending Candidates</h3>
+    <ul>
+      {% for c in candidates %}
+        {% if c.approved==0 %}
+          <li>{{ c.name }} for {{ c.position_title }} - applied by {{ c.applicant }}
+            <form method="POST" action="{{ url_for('approve_candidate', candidate_id=c.id) }}" style="display:inline">
+              <button name="action" value="approve" class="btn">Approve</button>
+              <button name="action" value="reject" class="btn">Reject</button>
+            </form>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Data</h3>
+    <h4>Voters</h4>
+    <ul>{% for v in voters %}<li>{{ v.name }} ({{ v.id_number }})</li>{% endfor %}</ul>
+    <h4>Elections</h4>
+    <ul>{% for e in elections %}<li>{{ e.position_title }}: {{ e.start_time }} → {{ e.end_time }}</li>{% endfor %}</ul>
+  </div>
+</div>
+<hr>
+<a href="{{ url_for('admin_candidates_list') }}" class="btn">Manage Candidates (search/paginate)</a>
+{% endblock %}

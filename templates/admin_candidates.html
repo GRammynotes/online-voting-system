@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Candidates</h2>
+<form method="GET">
+  <input name="q" placeholder="Search" value="{{ q }}">
+  <button class="btn">Search</button>
+</form>
+<div class="grid">
+  {% for c in candidates %}
+    <div class="card">
+      <h4>{{ c.name }}</h4>
+      <p>{{ c.bio }}</p>
+      <p>Approved: {{ c.approved }}</p>
+      <a href="{{ url_for('admin_edit_candidate', candidate_id=c.id) }}" class="btn">Edit</a>
+    </div>
+  {% endfor %}
+</div>
+<div class="pagination">
+  {% if page>1 %}<a href="{{ url_for('admin_candidates_list', page=page-1, q=q) }}">Prev</a>{% endif %}
+  <span>Page {{ page }} / {{ total_pages }}</span>
+  {% if page<total_pages %}<a href="{{ url_for('admin_candidates_list', page=page+1, q=q) }}">Next</a>{% endif %}
+</div>
+{% endblock %}

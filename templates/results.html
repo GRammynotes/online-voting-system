@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Results for election {{ election.id }}</h2>
+<canvas id="resultsChart"></canvas>
+<script>
+  const labels = [{% for r in results %}"{{ r.name }}",{% endfor %}];
+  const data = [{% for r in results %}{{ r.votes }},{% endfor %}];
+  const maxVotes = Math.max(...data,0);
+  const colors = data.map(v => v === maxVotes ? 'rgba(46,204,113,0.9)' : 'rgba(54,162,235,0.7)');
+  const ctx = document.getElementById('resultsChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Votes', data, backgroundColor: colors }] },
+    options: { plugins: { legend: { display: false } } }
+  });
+</script>
+{% endblock %}

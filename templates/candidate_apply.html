@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+  <h2>Apply as Candidate</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <input name="name" placeholder="Full name" required>
+    <select name="position_id" required>
+      {% for p in positions %}<option value="{{ p.id }}">{{ p.title }}</option>{% endfor %}
+    </select>
+    <textarea name="bio" placeholder="Short bio"></textarea>
+    <input type="file" name="photo" accept="image/*">
+    <button class="btn primary">Submit Application</button>
+  </form>
+</div>
+{% endblock %}

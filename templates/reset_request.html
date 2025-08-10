@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card auth-card">
+  <h2>Reset password</h2>
+  <form method="POST">
+    <input name="email" placeholder="Enter your email" required>
+    <button class="btn primary">Send reset link</button>
+  </form>
+</div>
+{% endblock %}
